@@ -1,0 +1,36 @@
+- label: CP_input_byte
+  type: input
+  size: 1
+  starting_address: 4116
+  topic: cp_input_byte_topic
+
+- label: CP_output_byte
+  type: output
+  size: 1
+  starting_address: 4120
+  topic: cp_output_byte_topic
+
+- label: CP_input_real
+  type: input
+  size: 4
+  starting_address: 4124
+  topic: cp_input_real_topic
+
+- label: CP_output_real
+  type: output
+  size: 4
+  starting_address: 4128
+  topic: cp_output_real_topic
+  
+- label: CP_input_byte_array
+  type: input
+  size: 8
+  starting_address: 4132
+  topic: cp_input_byte_array_topic
+  
+- label: CP_output_byte_array
+  type: output
+  size: 8
+  starting_address: 4136
+  topic: cp_output_byte_array_topic
+
