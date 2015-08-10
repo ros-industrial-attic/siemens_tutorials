@@ -48,12 +48,12 @@ int main(int argc, char *argv[])
     //-------------------------------------
     //Increment and publish PLC_input_byte
     //-------------------------------------
-    output_byte++;                          
     msg_dim.label = "PLC_input_byte";       
     msg_dim.size = 1;                     
     msg.layout.dim.clear();
     msg.layout.dim.push_back(msg_dim);    
     
+    output_byte++;       
     msg.data.clear();                      
     msg.data.push_back(output_byte);       
     pub_byte.publish(msg);
@@ -61,7 +61,6 @@ int main(int argc, char *argv[])
     //------------------------------------
     //Increment and publish PLC_input_real
     //------------------------------------
-    output_real += 0.1;                     
     msg_dim.label = "PLC_input_real";       
     msg_dim.size = 4;
     msg.layout.dim.clear();
@@ -69,7 +68,8 @@ int main(int argc, char *argv[])
     
     msg.data.clear();                      
     
-    //Decompose float to 4 bytes
+    //Convert float to 4 bytes
+    output_real += 0.1;
     unsigned char *p_byte;
     unsigned int output_array[sizeof(float)];
     p_byte = (unsigned char*)(&output_real);
