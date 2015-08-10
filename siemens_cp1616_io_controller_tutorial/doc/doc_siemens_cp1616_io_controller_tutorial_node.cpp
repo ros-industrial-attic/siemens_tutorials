@@ -39,15 +39,15 @@ int main(int argc, char *argv[])
   
   while(ros::ok())
   {
-     //-------------------------------------------
+    //-------------------------------------------
     //Increment and publish CP Output byte
     //-------------------------------------------
-    output_byte++;                         
     msg_dim.label = "CP_output_byte";       
     msg_dim.size = 1;                     
     msg.layout.dim.clear();
     msg.layout.dim.push_back(msg_dim);    
     
+    output_byte++; 
     msg.data.clear();                      
     msg.data.push_back(output_byte);       
     pub_byte.publish(msg);
