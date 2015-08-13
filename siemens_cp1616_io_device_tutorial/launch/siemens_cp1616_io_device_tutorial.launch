@@ -2,9 +2,8 @@
 <launch> 
   
   <!--   Load yaml config filepath on rosparam server -->
-  <rosparam>
-    filepath: "/home/durovsky/catkin_ws/src/siemens_tutorials/siemens_cp1616_io_device_tutorial/config/siemens_cp1616_io_device_tutorial_config.yaml"
-  </rosparam>  
+  <param name="filepath" value="$(find siemens_cp1616_io_device_tutorial)/config/test_io_device_config.yaml"/>  
+ 
   
   <!--   Wrapper node  -->
   <node 
