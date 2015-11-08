@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+  <name>siemens_cp1616_sinamics_s120_tutorial</name>
+  <version>1.0.0</version>
+  <description>
+    
+    Tutorial for siemens_cp1616 package enabling communication with SINAMICS drive. 
+    STEP7 example project as well as ROS code interfacing IO Controller wrapper
+    is included.
+    
+  </description>
+
+  <author>Frantisek Durovsky </author>
+  <maintainer email="frantisek.durovsky@smartroboticsys.eu">Frantisek Durovsky</maintainer>
+  <license>Apache2.0</license>
+
+  <url>http://www.ros.org/wiki/siemens_cp1616/Tutorials</url>
+ 
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <run_depend>roscpp</run_depend>
+ 
+</package>
