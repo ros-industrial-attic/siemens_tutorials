@@ -1,0 +1,11 @@
+- label: Drive_1_input
+  type: input
+  size: 4
+  starting_address: 256
+  topic: drive_1_input_topic
+
+- label: Drive_1_output
+  type: output
+  size: 4
+  starting_address: 256
+  topic: drive_1_output_topic
