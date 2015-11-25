@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
   //Wait until communication starts properly
   ros::Duration(10).sleep();
   
+  //-------------------------------------------------
+  //First telegram - Master control by PLC
+  //-------------------------------------------------
   msg_dim.label = "Drive_1_output";
   msg_dim.size = DRIVE_TELEGRAM_SIZE;
   msg.layout.dim.clear();
@@ -54,10 +57,9 @@ int main(int argc, char *argv[])
   //Wait for 2 seconds
   ros::Duration(2).sleep();
  
-  //-------------------------------------------
-  //Send initialization DRIVE telegram
-  // - set ON/OFF2 ON/OFF/3 to true
-  //-------------------------------------------
+  //--------------------------------------------------
+  //Second telegram - set ON/OFF2 ON/OFF/3 to true
+  //--------------------------------------------------
   msg_dim.label = "Drive_1_output";
   msg_dim.size = DRIVE_TELEGRAM_SIZE;
   msg.layout.dim.clear();
@@ -79,10 +81,9 @@ int main(int argc, char *argv[])
   //Wait for 2 seconds
   ros::Duration(2).sleep();
     
-  //-------------------------------------------
-  //Send initialization DRIVE telegram
-  // - set all necessary bytes except ON/OFF1 to true
-  //-------------------------------------------
+  //---------------------------------------------------------------
+  //Third telegram - set all necessary bytes except ON/OFF1 to true
+  //----------------------------------------------------------------
   msg_dim.label = "Drive_1_output";
   msg_dim.size = DRIVE_TELEGRAM_SIZE;
   msg.layout.dim.clear();
@@ -109,8 +110,8 @@ int main(int argc, char *argv[])
   //-------------------------------------------
   while(ros::ok())
   {
-       
     ROS_INFO("Goal speed: 500");
+    
     //message header
     msg_dim.label = "Drive_1_output";
     msg_dim.size = DRIVE_TELEGRAM_SIZE;
@@ -153,18 +154,16 @@ int main(int argc, char *argv[])
     //wait for 5 seconds
     ros::Duration(5).sleep();
     ros::spinOnce();
-  }     
-  
+  }   
   return (EXIT_SUCCESS);
 }
     
-    
 void setDriveTelegram(unsigned char drive_telegram[], int velocity)   
 { 
-  //Scale to 0x4000 = 100% ratio
+  //Scale to 0x4000 = 100% 
   int velocity_rel = (velocity * 0x4000) / N_MAX; 
     
-  //Decompose velocity from int to 4*unsigned char
+  //Decompose velocity from int to 2*unsigned char
   unsigned char velocity_bytes[2]; 
   
   velocity_bytes[0] = (velocity_rel >> 8)  & 0xFF;
@@ -175,7 +174,6 @@ void setDriveTelegram(unsigned char drive_telegram[], int velocity)
   drive_telegram[1] =  0b11111111;           //STW1 low
   drive_telegram[2] =  velocity_bytes[0];    //NSOLL_A high 
   drive_telegram[3] =  velocity_bytes[1];    //NSOLL_A low
-
 }
 
 void driveTelegramCallback(const std_msgs::UInt8MultiArray::ConstPtr &msg)
