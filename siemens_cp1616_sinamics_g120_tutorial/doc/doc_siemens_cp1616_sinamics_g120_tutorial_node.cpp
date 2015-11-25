@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
   ros::Publisher pub_drive = nh.advertise<std_msgs::UInt8MultiArray>
                                          ("/drive_1_output_topic", 1);
 
-  //Telegram 111 
+  //Telegram 1 
   unsigned char drive_telegram_1[DRIVE_TELEGRAM_SIZE];
 
   //std_msgs::MultiArray variables
