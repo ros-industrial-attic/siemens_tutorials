@@ -3,6 +3,7 @@
 #include <std_msgs/UInt8MultiArray.h>
 
 const int DRIVE_TELEGRAM_SIZE = 4;
+const int N_MAX = 1500;
 
 //declarations
 void driveTelegramCallback(const std_msgs::UInt8MultiArray::ConstPtr &msg);
@@ -50,9 +51,34 @@ int main(int argc, char *argv[])
 
   pub_drive.publish(msg);
   
-  //Wait 2 seconds 
+  //Wait for 2 seconds
   ros::Duration(2).sleep();
  
+  //-------------------------------------------
+  //Send initialization DRIVE telegram
+  // - set ON/OFF2 ON/OFF/3 to true
+  //-------------------------------------------
+  msg_dim.label = "Drive_1_output";
+  msg_dim.size = DRIVE_TELEGRAM_SIZE;
+  msg.layout.dim.clear();
+  msg.layout.dim.push_back(msg_dim);
+
+  msg.data.clear();
+
+  drive_telegram_1[0] =  0b00000100;   //STW1 high
+  drive_telegram_1[1] =  0b10000110;   //STW1 low
+  drive_telegram_1[2] =  0b00000000;   //NSOLL_A high
+  drive_telegram_1[3] =  0b00000000;   //NSOLL_A low
+  
+  msg.data.clear();
+  for(size_t i = 0;  i < DRIVE_TELEGRAM_SIZE; i++)
+    msg.data.push_back(drive_telegram_1[i]);
+
+  pub_drive.publish(msg);
+  
+  //Wait for 2 seconds
+  ros::Duration(2).sleep();
+    
   //-------------------------------------------
   //Send initialization DRIVE telegram
   // - set all necessary bytes except ON/OFF1 to true
@@ -75,7 +101,7 @@ int main(int argc, char *argv[])
 
   pub_drive.publish(msg);
     
-  //Wait 2 seconds before entering loop
+  //Wait for 2 seconds
   ros::Duration(2).sleep();
   
   //-------------------------------------------
@@ -91,7 +117,7 @@ int main(int argc, char *argv[])
     msg.layout.dim.clear();
     msg.layout.dim.push_back(msg_dim);
     
-    setDriveTelegram(drive_telegram_1, 5000);
+    setDriveTelegram(drive_telegram_1, 500);
         
     //copy telegram data
     msg.data.clear();
@@ -114,7 +140,7 @@ int main(int argc, char *argv[])
     msg.layout.dim.clear();
     msg.layout.dim.push_back(msg_dim);
         
-    setDriveTelegram(drive_telegram_1, 10000);
+    setDriveTelegram(drive_telegram_1, 1000);
     
     //copy telegram data
     msg.data.clear();
@@ -130,22 +156,26 @@ int main(int argc, char *argv[])
   }     
   
   return (EXIT_SUCCESS);
-}    
+}
+    
     
 void setDriveTelegram(unsigned char drive_telegram[], int velocity)   
 { 
-     
+  //Scale to 0x4000 = 100% ratio
+  int velocity_rel = (velocity * 0x4000) / N_MAX; 
+    
   //Decompose velocity from int to 4*unsigned char
   unsigned char velocity_bytes[2]; 
   
-  velocity_bytes[0] = (velocity >> 8)  & 0xFF;
-  velocity_bytes[1] = velocity & 0xFF;   
+  velocity_bytes[0] = (velocity_rel >> 8)  & 0xFF;
+  velocity_bytes[1] = velocity_rel & 0xFF;   
   
   //Set telegram data
   drive_telegram[0] =  0b00000100;           //STW1 high
   drive_telegram[1] =  0b11111111;           //STW1 low
   drive_telegram[2] =  velocity_bytes[0];    //NSOLL_A high 
   drive_telegram[3] =  velocity_bytes[1];    //NSOLL_A low
+
 }
 
 void driveTelegramCallback(const std_msgs::UInt8MultiArray::ConstPtr &msg)
