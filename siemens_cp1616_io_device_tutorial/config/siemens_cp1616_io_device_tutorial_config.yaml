@@ -1,0 +1,63 @@
+- label: module_DAP
+  type: init
+  size: 0
+  slot: 1
+  modId: 0x19
+  subslotId: 0x10001
+  topic: none
+   
+- label: PLC_output_byte
+  type: output
+  size: 1
+  slot: 2
+  modId: 0x22
+  subslotId: 0x01
+  topic: plc_output_byte_topic
+  
+- label: PLC_input_byte
+  type: input
+  size: 1
+  slot: 3
+  modId: 0x21
+  subslotId: 0x01
+  topic: plc_input_byte_topic
+  
+- label: PLC_output_real
+  type: output
+  size: 4
+  slot: 4
+  modId: 0x25
+  subslotId: 0x01
+  topic: plc_output_real_topic
+  
+- label: PLC_input_real
+  type: input
+  size: 4
+  slot: 5
+  modId: 0x24
+  subslotId: 0x01
+  topic: plc_input_real_topic  
+  
+- label: PLC_output_byte_array
+  type: output
+  size: 8
+  slot: 6
+  modId: 0x3D
+  subslotId: 0x01
+  topic: plc_output_byte_array_topic
+  
+- label: PLC_input_byte_array
+  type: input
+  size: 8
+  slot: 7
+  modId: 0x3C
+  subslotId: 0x01
+  topic: plc_input_byte_array_topic 
+  
+- label: PLC_bidirect
+  type: bidirect
+  size: 1
+  slot: 8
+  modId: 0x20
+  subslotId: 0x01
+  topic: plc_bidirect 

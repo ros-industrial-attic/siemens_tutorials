@@ -1,0 +1,23 @@
+- label: CU_input
+  type: input
+  size: 4
+  starting_address: 512
+  topic: cu_input_topic
+
+- label: CU_output
+  type: output
+  size: 4
+  starting_address: 512
+  topic: cu_output_topic
+
+- label: Drive_1_input
+  type: input
+  size: 24
+  starting_address: 516
+  topic: drive_1_input_topic
+
+- label: Drive_1_output
+  type: output
+  size: 24
+  starting_address: 516
+  topic: drive_1_output_topic

@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<launch> 
+  
+  <!--   Load yaml config filepath on rosparam server -->
+  <param name="filepath" value="$(find siemens_cp1616_io_controller_tutorial)/config/test_io_controller_config.yaml"/>  
+  
+  <!--   Wrapper node  -->
+  <node 
+    name="siemens_cp1616_io_controller_wrapper"
+    pkg="siemens_cp1616" 
+    type="siemens_cp1616_io_controller_wrapper" 
+    output="screen" />
+   
+  <!--   Tutorial node -->
+  <node  
+    name="siemens_cp1616_io_controller_tutorial" 
+    pkg="siemens_cp1616_io_controller_tutorial" 
+    type="siemens_cp1616_io_controller_tutorial_node"
+    output="screen" /> 
+    
+</launch>
