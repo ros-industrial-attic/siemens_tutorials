@@ -7,7 +7,7 @@
   <node
     name="siemens_cp1616_io_controller_wrapper"
     pkg="siemens_cp1616"
-    type="siemens_cp1616_io_controller_wrapper"
+    type="io_controller_wrapper"
     output="screen" />
 
   <!--   User node -->
